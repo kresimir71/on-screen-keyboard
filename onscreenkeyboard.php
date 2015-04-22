@@ -29,10 +29,10 @@ add_action( 'admin_notices', 'onscreenkeyboard' );
 // We need some CSS to position the paragraph
 function onscreenkeyboard_css() {
 	// This makes sure that the positioning is also good for right-to-left languages
-	wp_register_style('onscreenkeyboardcss', plugins_url( 'onscreenkeyboard/css/jskeyboard.css'),array(),'1.1','screen');
+	wp_register_style('onscreenkeyboardcss', plugins_url( 'on-screen-keyboard/css/jskeyboard.css'),array(),'1.1','screen');
 	wp_enqueue_style( 'onscreenkeyboardcss' );	
-	wp_register_script('onscreenkeyboard', plugins_url( 'onscreenkeyboard/js/jskeyboard.js'), array('jquery'),'1.1', true);
-	wp_register_script('onscreenkeyboard.main', plugins_url( 'onscreenkeyboard/js/jskeyboard.main.js'), array('jquery'),'1.1', true);
+	wp_register_script('onscreenkeyboard', plugins_url( 'on-screen-keyboard/js/jskeyboard.js'), array('jquery'),'1.1', true);
+	wp_register_script('onscreenkeyboard.main', plugins_url( 'on-screen-keyboard/js/jskeyboard.main.js'), array('jquery'),'1.1', true);
 	wp_enqueue_script('onscreenkeyboard');
 	wp_enqueue_script('onscreenkeyboard.main');
 }
