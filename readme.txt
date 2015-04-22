@@ -4,7 +4,7 @@ Donate link: http://onscreenkeyboard.co.nf/
 Tags: comments, , onscreenkeyboard, onscreen, screen, keyboard, data-entry, mouse, touchscreen
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://directory.fsf.org/wiki/License:Expat
 
@@ -31,7 +31,7 @@ or use the wordpress plugin installer
 
 = I've installed v1.0 but the keyboard fails to pop up =
 
-There is a bug in v1.0, preventing the plugin triggering, please upgrade to v1.1, where this is fixed.
+There is a bug in v1.0, preventing the plugin triggering, please upgrade to v1.2, where this is fixed.
 
 == Screenshots ==
 
@@ -39,11 +39,13 @@ See http://onscreenkeyboard.co.nf/ for working demo
 
 == Upgrade Notice ==
 
-Version 1.1:  Installer bug fixed, which prevented plugin working.
+Version 1.2:  Installer bug fixed, which prevented plugin working - please upgrade if you are having problems making the keyboard appear.
 
 == Changelog ==
 
+= 1.2 =
+* Installer debugged, now installs, and keyboard displays properly.
 = 1.1 =
-* Installer bug fixed, which prevented plugin working.
+* Installer bug fixed, which prevented plugin working (superseeded version).
 = 1.0 =
 * Plugin Launched
