@@ -3,7 +3,7 @@
  * Plugin Name: Onscreen Keyboard
  * Plugin URI: http://not-applicable
  * Description: This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from github by Iain Redmill, now working within WordPress, allowing mouse based input or input when working from a touch screen device.  Keyboard settings etc can be modified by editing the file.  To add a keyboard, enter <b>[oskb]</b> within your page where you wish it to appear.
- * Version: 1.0
+ * Version: 1.1
  * Author: Ported by Iain Redmill
  * Author URI: http://URI_Of_The_Plugin_Author
  * Network: true
