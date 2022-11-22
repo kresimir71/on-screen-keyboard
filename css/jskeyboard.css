@@ -1,10 +1,10 @@
-body {margin:0px 0px; padding:0px; /* Need to set body margin and padding to get consistency between browsers. */
-     /* text-align:center; /* Hack for IE5/Win */
-font-size:14px; font-family:Arial Unicode MS;font-weight:normal;
-overflow:hidden;
-}
+/* body {margin:0px 0px; padding:0px; /\* Need to set body margin and padding to get consistency between browsers. *\/ */
+/*      /\* text-align:center; /\* Hack for IE5/Win *\/ */
+/* font-size:14px; font-family:Arial Unicode MS;font-weight:normal; */
+/* overflow:hidden; */
+/* } */
 
-#virtualKeyboard {
+#onScreenKeyboardElmId {
     width: 100%;
     text-align: center;
     /*background-color:#7b8490;*/

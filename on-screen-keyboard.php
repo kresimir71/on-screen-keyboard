@@ -3,40 +3,26 @@
  * Plugin Name: Onscreen Keyboard
  * Plugin URI: http://onscreenkeyboard.co.nf/
  * Description: This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from github by Iain Redmill, now working within WordPress, allowing mouse based input or input when working from a touch screen device.  Keyboard settings etc can be modified by editing the file.  To add a keyboard, enter <b>[oskb]</b> within your page where you wish it to appear.
- * Version: 1.2
+ * Version: 1.3
  * Author: Ported by Iain Redmill
  * Author URI: http://onscreenkeyboard.co.nf/
+ * Text Domain:     on-screen-keyboard 
  * Network: true
- * License: GPL2
+ * License: GNU General Public License, version 3
+ * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
-function onscreenkeyboard_the_content( $content ) {
-   return str_replace("[oskb]",'<div id="virtualKeyboard"></div>',$content);
-}
+// Require the main plugin class.
+require_once plugin_dir_path( __FILE__ ) . 'class-on-screen-keyboard-plugin.php';
 
-add_filter( 'the_content', 'onscreenkeyboard_the_content' );
-/*  
-// This just echoes the chosen line, we'll position it later
-function onscreenkeyboard() {
-	echo "testing 123 ";
-	
-	
-// Now we set that function up to execute when the admin_notices action is called
-add_action( 'admin_notices', 'onscreenkeyboard' );
-*/
+// Register hooks that are fired when the plugin is activated and deactivated, respectively.
+register_activation_hook( __FILE__, array( 'OnScreenKeyboard', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'OnScreenKeyboard', 'deactivate' ) );
 
-// We need some CSS to position the paragraph
-function onscreenkeyboard_css() {
-	// This makes sure that the positioning is also good for right-to-left languages
-	wp_register_style('onscreenkeyboardcss', plugins_url( 'on-screen-keyboard/css/jskeyboard.css'),array(),'1.1','screen');
-	wp_enqueue_style( 'onscreenkeyboardcss' );	
-	wp_register_script('onscreenkeyboard', plugins_url( 'on-screen-keyboard/js/jskeyboard.js'), array('jquery'),'1.1', true);
-	wp_register_script('onscreenkeyboard.main', plugins_url( 'on-screen-keyboard/js/jskeyboard.main.js'), array('jquery'),'1.1', true);
-	wp_enqueue_script('onscreenkeyboard');
-	wp_enqueue_script('onscreenkeyboard.main');
-}
-
-add_action( 'wp_enqueue_scripts', 'onscreenkeyboard_css' );
+// Get plugin instance.
+OnScreenKeyboard::instance();
   
 ?>
