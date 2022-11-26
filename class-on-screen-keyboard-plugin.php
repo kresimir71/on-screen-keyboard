@@ -128,6 +128,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 */
 		public function includes() {
 
+		  if (is_admin()) $this->include_admin();
 			// Include Predux_Core.
 			// if ( file_exists( dirname( __FILE__ ) . '/PreduxCore/framework.php' ) ) {
 			// 	require_once dirname( __FILE__ ) . '/PreduxCore/framework.php';
@@ -151,8 +152,6 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 * @return      void
 		 */
 		private function hooks() {
-			//add_action( 'wp_loaded', array( $this, 'options_toggle_check' ) );
-
 			// Activate plugin when new blog is added.
 			add_action( 'wpmu_new_blog', array( $this, 'activate_new_site' ) );
 
@@ -162,13 +161,30 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 			// Edit plugin metalinks.
 			add_filter( 'plugin_row_meta', array( $this, 'plugin_metalinks' ), null, 2 );
 
-			add_action( 'wp_enqueue_scripts', array( $this, 'onscreenkeyboard_css' ) );
+			if ($this->is_old_version()){
+			  add_action( 'wp_enqueue_scripts', array( $this, 'onscreenkeyboard_css' ) );
+			} else {
+			  add_action( 'wp_enqueue_scripts', array( $this, 'new_onscreenkeyboard_css' ) );
+			}
 			add_shortcode( 'oskb', array( $this, 'oskb_func' ) );
 
 			// phpcs:ignore WordPress.NamingConventions.ValidHookName
 			do_action( 'onscreenkeyboard/plugin/hooks', $this );
 		}
 
+		/**
+		 *
+		 * @access      private
+		 * @since       1.3
+		 * @return      bool
+		 */
+
+		private function is_old_version(){
+		  $options = get_option('OnScreenKeyboardOptions', array());
+		  $version = isset($options['version']) ? $options['version'] : 'old';
+		  return $version == 'old';
+		}
+		
 		/**
 		 * Fired on plugin activation
 		 *
@@ -309,18 +325,6 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		}
 
 		/**
-		 * Turn on or off
-		 *
-		 * @access      public
-		 * @since       1.3
-		 * @global      string $pagenow The current page being displayed
-		 * @return      void
-		 */
-		public function options_toggle_check() {
-			global $pagenow;
-		}
-
-		/**
 		 * Edit plugin metalinks
 		 *
 		 * @access      public
@@ -335,7 +339,6 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 			return $links;
 		}
-	}
 
 		/**
 		 * JS and CSS of the old version
@@ -356,6 +359,24 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 }
 
 		/**
+		 * JS and CSS of the NEW version
+		 * 
+		 * @access      public
+		 * @since       1.3
+		 * @return      void
+		 */
+
+		 public function new_onscreenkeyboard_css() {
+
+		   wp_register_style('newonscreenkeyboardcss', plugins_url( 'on-screen-keyboard/css/newjskeyboard.css'),array(),'1.1','screen');
+		   wp_enqueue_style( 'newonscreenkeyboardcss' );	
+		   wp_register_script('newonscreenkeyboard', plugins_url( 'on-screen-keyboard/js/newjskeyboard.js'), array('jquery'),'1.1', true);
+		   wp_register_script('newonscreenkeyboard.main', plugins_url( 'on-screen-keyboard/js/newjskeyboard.main.js'), array('jquery'),'1.1', true);
+		   wp_enqueue_script('newonscreenkeyboard');
+		   wp_enqueue_script('newonscreenkeyboard.main');
+		 }
+		 
+		/**
 		 * Shortcode
 		 * //[oskb]
 		 * @access      public
@@ -366,5 +387,21 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 public function oskb_func( $atts ){
 		   return '<div id="onScreenKeyboardElmId"></div>';
 		 }
+		 
+		 /**
+		 * admin pages
+		 * 
+		 * @access      public
+		 * @since       1.3
+		 * @return      void
+		 */
 
+		 public function include_admin(){
+
+		   include( dirname( __FILE__ ) . '/admin.php' );
+
+		 }
+
+	}
+		 
 }

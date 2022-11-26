@@ -7,7 +7,6 @@
  * Author: Ported by Iain Redmill
  * Author URI: http://onscreenkeyboard.co.nf/
  * Text Domain:     on-screen-keyboard 
- * Network: true
  * License: GNU General Public License, version 3
  * License URI:     http://www.gnu.org/licenses/gpl-3.0.txt
  */
