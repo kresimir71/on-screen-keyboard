@@ -8,7 +8,9 @@
 
 #onScreenKeyboardElmId #keyboard{
     padding:10px;
-    width:310px;
+    /*    width:310px;*/
+    max-width:810px;
+    width:100%;
     margin: 0 auto;
     height:288;
     display:block;
@@ -24,10 +26,10 @@
 #onScreenKeyboardElmId .closex {font-weight:bolder; color:#000;}
 
 #onScreenKeyboardElmId #keyboardCapitalLetter {display:none;}
-#onScreenKeyboardElmId #keyboardSmallLetter {display:none;}
+#onScreenKeyboardElmId #keyboardSmallLetter {display:block;}
 #onScreenKeyboardElmId #keyboardNumber {display:none;}
 #onScreenKeyboardElmId #keyboardSymbols {display:none;}
-#onScreenKeyboardElmId #keyboardOnlyNumber {display:block;}
+#onScreenKeyboardElmId #keyboardOnlyNumber {display:none;}
 
 #onScreenKeyboardElmId div.button_default
 {

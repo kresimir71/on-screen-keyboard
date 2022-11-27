@@ -11,7 +11,7 @@ var onScreenKeyboardJS = {
     init: function(elem, keyboard) {
         onScreenKeyboardJS.keyboard["default"] = onScreenKeyboardJS.defaultKeyboard;
         onScreenKeyboardJS.keyboardLayout = elem;
-		onScreenKeyboardJS.keyboardLayout_data_id = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('id'); // fancy for: element.getAttribute('data-id'); //kk71
+	onScreenKeyboardJS.keyboardLayout_data_id = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('id'); // fancy for: element.getAttribute('data-id'); //kk71
 
         if (keyboard != null && keyboard != undefined)
             onScreenKeyboardJS.generateKeyboard(keyboard);
@@ -20,6 +20,8 @@ var onScreenKeyboardJS = {
 
         onScreenKeyboardJS.addKeyDownEvent();
 
+	//https://www.w3schools.com/jsref/prop_win_innerwidth.asp
+	//        jQuery("onScreenKeyboardElmId #keyboard").css("width", "500px");	
          onScreenKeyboardJS.show();
          jQuery(':input').not('[type="reset"]').not('[type="submit"]').on('focus, click', function(e)
          {
@@ -33,7 +35,7 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.show();
     },
     keyboardLayout: "", // it shows the html element where keyboard is generated
-	keyboardLayout_data_id: "", // kk71
+    keyboardLayout_data_id: "", // kk71
     currentKeyboard: "default", // it shows the which keyboard is used. If it's not set default keyboard is used.
     currentElement: null,
     generateKeyboard: function(keyboard) {
@@ -80,7 +82,6 @@ var onScreenKeyboardJS = {
         s += "<div id=\"keyboardOnlyNumber\">";
         jQuery.each(onScreenKeyboardJS.keyboard[keyboard].onlynumber, function(i, key) {
             generate(key);
-			//if (i>0 && (i+1) %4 ==0 ) s += "<hr>";
         });
         s += "</div>";
 		
@@ -124,6 +125,11 @@ var onScreenKeyboardJS = {
         jQuery("#keyboardCapitalLetter,#keyboardNumber,#keyboardSmallLetter").css("display", "none");
         jQuery("#keyboardSymbols").css("display", "block");
     },
+    changeToOnlyNumber: function() {
+        jQuery("#keyboardOnlyNumber").css("display", "block");
+        jQuery("#keyboardSymbols,#keyboardCapitalLetter,#keyboardSmallLetter,#keyboardNumber").css("display", "none");
+    },
+
     updateCursor: function()
     {
         //input cursor focus and position during typing
@@ -137,9 +143,11 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.currentElement.val(output);
         onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
-		console.log(output);
-		jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
+	console.log(output);
+	if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
+	    jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
 	    if(output.length == 12 && /^\d+$/.test(output) ) jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id+"button").click(); //kk71
+	}
 
     },
     del: function() {
@@ -149,7 +157,9 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.currentElement.val(output);
         onScreenKeyboardJS.currentElementCursorPosition--; //-1 cursor
         onScreenKeyboardJS.updateCursor();
-		jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
+	if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
+	    jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
+	}
     },
     enter: function() {
         var t = onScreenKeyboardJS.currentElement.val();

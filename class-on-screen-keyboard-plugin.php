@@ -165,6 +165,10 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 			  add_action( 'wp_enqueue_scripts', array( $this, 'onscreenkeyboard_css' ) );
 			} else {
 			  add_action( 'wp_enqueue_scripts', array( $this, 'new_onscreenkeyboard_css' ) );
+			  if ( $this->is_pasword_protected_posts() ){
+			    add_filter('the_password_form', array( $this, 'my_custom_password_form'), 99);
+			  }
+
 			}
 			add_shortcode( 'oskb', array( $this, 'oskb_func' ) );
 
@@ -183,6 +187,19 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		  $options = get_option('OnScreenKeyboardOptions', array());
 		  $version = isset($options['version']) ? $options['version'] : 'old';
 		  return $version == 'old';
+		}
+
+		/**
+		 *
+		 * @access      private
+		 * @since       1.3
+		 * @return      bool
+		 */
+
+		private function is_pasword_protected_posts(){
+		  $options = get_option('OnScreenKeyboardOptions', array());
+		  $enabled = isset($options['PasswordProtectedPosts']) && isset($options['PasswordProtectedPosts']['pp_enabled']) ? $options['PasswordProtectedPosts']['pp_enabled'] : 0;
+		  return $enabled == 1;
 		}
 		
 		/**
@@ -400,6 +417,32 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 		   include( dirname( __FILE__ ) . '/admin.php' );
 
+		 }
+
+		 /**
+		 * admin pages
+		 * 
+		 * @access      public
+		 * @since       1.3
+		 * @return      html form
+		 */
+
+		 public function my_custom_password_form() {
+		   global $post;
+		   $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+    $output = '
+    <div class="boldgrid-section">
+        <div class="container">
+            <form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" class="form-inline post-password-form" method="post">
+                <p>' . __( 'This content is password protected. To view it please enter your password below:' ) . '</p>
+                <label for="' . $label . '">' . __( 'Password:' ) . ' <input name="post_password" id="' . $label . '" type="password" size="20" class="form-control" /></label>
+				<div id="onScreenKeyboardElmId" data-id="' . $label . '"></div>
+				<button type="submit" name="Submit" class="button-primary" id="' . $label . "button".'">' . esc_attr_x( 'Enter', 'post password form' ) . '</button>
+            </form>
+        </div>
+
+    </div>';
+    return $output;
 		 }
 
 	}
