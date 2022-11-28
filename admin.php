@@ -62,16 +62,21 @@ if ( ! class_exists( 'OnScreenKeyboardAdmin', false ) ) {
 				    )
 			      );
 
-
+      $is_old = OnScreenKeyboardAdminPageFramework::getOption( 'OnScreenKeyboardOptions', 'version', 'old' ) == 'old';
+      
       $this->addSettingFields(
 			      array(
 				    'field_id'      => 'PasswordProtectedPosts',
 				    'title'         => __( 'PP posts', 'on-screen-keyboard' ),
-				    'type'          => 'checkbox',
-				    'label'         => array ('pp_enabled' => __( 'Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.', 'on-screen-keyboard' ),),
-				    'default'   => array( 'pp_enabled' => true ),
+				    'type'          => 'radio',
+				    'label'         => array ('pp_disabled' => __( 'Disabled onscreen keyboard for password protected posts and pages', 'on-screen-keyboard' ),
+							      'pp_enabled_standard' => __( 'Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.', 'on-screen-keyboard' ),
+							      'pp_enabled_numeric' => __( 'Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.', 'on-screen-keyboard' ), ),
+				    'default'   => 'pp_disabled',
 				    'attributes'    => array(
-							     'pp_enabled' => ( OnScreenKeyboardAdminPageFramework::getOption( 'OnScreenKeyboardOptions', 'version', 'old' ) == 'old' ?  array('disabled' => 'disabled',) : array() ),),));
+							     'pp_disabled' => ( $is_old ?  array('disabled' => 'disabled',) : array() ),
+							     'pp_enabled_standard' => ( $is_old ?  array('disabled' => 'disabled',) : array() ),
+							     'pp_enabled_numeric' => ( $is_old ?  array('disabled' => 'disabled',) : array() )),));
       
   $this->addSettingFields(
             array( // Submit button

@@ -165,8 +165,11 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 			  add_action( 'wp_enqueue_scripts', array( $this, 'onscreenkeyboard_css' ) );
 			} else {
 			  add_action( 'wp_enqueue_scripts', array( $this, 'new_onscreenkeyboard_css' ) );
-			  if ( $this->is_pasword_protected_posts() ){
-			    add_filter('the_password_form', array( $this, 'my_custom_password_form'), 99);
+			  if ( $this->is_numeric_password_protected_posts() ){
+			    add_filter('the_password_form', array( $this, 'my_custom_password_form_with_numeric_keyboard'), 99);
+			  }
+			  if ( $this->is_standard_password_protected_posts() ){
+			    add_filter('the_password_form', array( $this, 'my_custom_password_form_with_standard_keyboard'), 99);
 			  }
 
 			}
@@ -196,9 +199,22 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 * @return      bool
 		 */
 
-		private function is_pasword_protected_posts(){
+		private function is_numeric_password_protected_posts(){
 		  $options = get_option('OnScreenKeyboardOptions', array());
-		  $enabled = isset($options['PasswordProtectedPosts']) && isset($options['PasswordProtectedPosts']['pp_enabled']) ? $options['PasswordProtectedPosts']['pp_enabled'] : 0;
+		  $enabled = isset($options['PasswordProtectedPosts']) ? $options['PasswordProtectedPosts']=='pp_enabled_numeric' : false;
+		  return $enabled == 1;
+		}
+
+		/**
+		 *
+		 * @access      private
+		 * @since       1.3
+		 * @return      bool
+		 */
+
+		private function is_standard_password_protected_posts(){
+		  $options = get_option('OnScreenKeyboardOptions', array());
+		  $enabled = isset($options['PasswordProtectedPosts']) ? $options['PasswordProtectedPosts']=='pp_enabled_standard' : false;
 		  return $enabled == 1;
 		}
 		
@@ -427,7 +443,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 * @return      html form
 		 */
 
-		 public function my_custom_password_form() {
+		 public function my_custom_password_form_with_numeric_keyboard() {
 		   global $post;
 		   $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
     $output = '
@@ -436,7 +452,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
             <form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" class="form-inline post-password-form" method="post">
                 <p>' . __( 'This content is password protected. To view it please enter your password below:' ) . '</p>
                 <label for="' . $label . '">' . __( 'Password:' ) . ' <input name="post_password" id="' . $label . '" type="password" size="20" class="form-control" /></label>
-				<div id="onScreenKeyboardElmId" data-id="' . $label . '"></div>
+				<div id="onScreenKeyboardElmId" data-id="' . $label . '" data-keyboard="numeric"></div>
 				<button type="submit" name="Submit" class="button-primary" id="' . $label . "button".'">' . esc_attr_x( 'Enter', 'post password form' ) . '</button>
             </form>
         </div>
@@ -445,6 +461,32 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
     return $output;
 		 }
 
+		 /**
+		 * admin pages
+		 * 
+		 * @access      public
+		 * @since       1.3
+		 * @return      html form
+		 */
+
+		 public function my_custom_password_form_with_standard_keyboard() {
+		   global $post;
+		   $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+    $output = '
+    <div class="boldgrid-section">
+        <div class="container">
+            <form action="' . esc_url( site_url( 'wp-login.php?action=postpass', 'login_post' ) ) . '" class="form-inline post-password-form" method="post">
+                <p>' . __( 'This content is password protected. To view it please enter your password below:' ) . '</p>
+                <label for="' . $label . '">' . __( 'Password:' ) . ' <input name="post_password" id="' . $label . '" type="password" size="20" class="form-control" /></label>
+				<div id="onScreenKeyboardElmId" data-id="' . $label . '" data-keyboard="standard"></div>
+				<button type="submit" name="Submit" class="button-primary" id="' . $label . "button".'">' . esc_attr_x( 'Enter', 'post password form' ) . '</button>
+            </form>
+        </div>
+
+    </div>';
+    return $output;
+		 }
+		 
 	}
 		 
 }

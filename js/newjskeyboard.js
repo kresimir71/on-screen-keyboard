@@ -13,11 +13,16 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.keyboardLayout = elem;
 	onScreenKeyboardJS.keyboardLayout_data_id = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('id'); // fancy for: element.getAttribute('data-id'); //kk71
 
+	onScreenKeyboardJS.keyboardLayout_data_keyboard = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('keyboard'); // fancy for: element.getAttribute('data-keyboard'); //kk71
+
         if (keyboard != null && keyboard != undefined)
             onScreenKeyboardJS.generateKeyboard(keyboard);
         else
             onScreenKeyboardJS.generateKeyboard("default");
 
+	if ( onScreenKeyboardJS.keyboardLayout_data_keyboard != null && onScreenKeyboardJS.keyboardLayout_data_keyboard == "numeric" ){
+	    onScreenKeyboardJS.changeToOnlyNumber();
+	}
         onScreenKeyboardJS.addKeyDownEvent();
 
 	//https://www.w3schools.com/jsref/prop_win_innerwidth.asp
@@ -36,6 +41,7 @@ var onScreenKeyboardJS = {
     },
     keyboardLayout: "", // it shows the html element where keyboard is generated
     keyboardLayout_data_id: "", // kk71
+    keyboardLayout_data_keyboard: "", // kk71    
     currentKeyboard: "default", // it shows the which keyboard is used. If it's not set default keyboard is used.
     currentElement: null,
     generateKeyboard: function(keyboard) {
