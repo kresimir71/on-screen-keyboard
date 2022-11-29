@@ -6,9 +6,8 @@
     /*border-top:3px solid #000;*/
 }
 
-#onScreenKeyboardElmId #keyboard{
+#onScreenKeyboardElmId #keyboardOskb{
     padding:10px;
-    /*    width:310px;*/
     max-width:810px;
     width:100%;
     margin: 0 auto;
@@ -19,19 +18,19 @@
 /*    position:absolute;*/
     bottom:0px; left:0px;
  }
-#onScreenKeyboardElmId #keyboard:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+#onScreenKeyboardElmId #keyboardOskb:after {content: ".";display: block;height: 0;clear: both;visibility: hidden;}
 
-#onScreenKeyboardElmId #keyboardHeader {position:relative;}
-#onScreenKeyboardElmId #keyboardHeader div {color:#fff; background-color:#7b8490;padding:3px; padding-left:15px; padding-right:15px; position:absolute; cursor:pointer; right:-10px; top:-40px;}
-#onScreenKeyboardElmId .closex {font-weight:bolder; color:#000;}
+#onScreenKeyboardElmId #keyboardOskbHeader {position:relative;}
+#onScreenKeyboardElmId #keyboardOskbHeader div {color:#fff; background-color:#7b8490;padding:3px; padding-left:15px; padding-right:15px; position:absolute; cursor:pointer; right:-10px; top:-40px;}
+/* #onScreenKeyboardElmId .closex {font-weight:bolder; color:#000;}*/
 
-#onScreenKeyboardElmId #keyboardCapitalLetter {display:none;}
-#onScreenKeyboardElmId #keyboardSmallLetter {display:block;}
-#onScreenKeyboardElmId #keyboardNumber {display:none;}
-#onScreenKeyboardElmId #keyboardSymbols {display:none;}
-#onScreenKeyboardElmId #keyboardOnlyNumber {display:none;}
+#onScreenKeyboardElmId #keyboardOskbCapitalLetter {display:none;}
+#onScreenKeyboardElmId #keyboardOskbSmallLetter {display:block;}
+#onScreenKeyboardElmId #keyboardOskbNumber {display:none;}
+#onScreenKeyboardElmId #keyboardOskbSymbols {display:none;}
+#onScreenKeyboardElmId #keyboardOskbOnlyNumber {display:none;}
 
-#onScreenKeyboardElmId div.button_default
+#onScreenKeyboardElmId div.button_oskb_default
 {
     width:60px; height:60px;
     background-color:#fff;
@@ -41,7 +40,7 @@
     margin-top:10px;
     cursor:pointer;
     font-size:1.9em;
-	padding: 0px;
+    padding: 0px;
     text-transform: none;
 
     /*box shadow*/
@@ -54,32 +53,32 @@
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* webkit */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* ie */
 }
-#onScreenKeyboardElmId .buttonDown {background:none;background-color: #c9cdd5; -webkit-box-shadow:none;-moz-box-shadow: none;box-shadow: none;}
-#onScreenKeyboardElmId div.button_a {margin-left:26px;}
-#onScreenKeyboardElmId div.button_dash {margin-left:26px;}
-#onScreenKeyboardElmId div.button_underscore {margin-left:26px;}
-#onScreenKeyboardElmId div.button_enter {width:103px; font-size:1.3em; }
-#onScreenKeyboardElmId div.button_del{width:103px; font-size:1.3em;}
-#onScreenKeyboardElmId div.button_smallletter{font-size:1.3em;}
-#onScreenKeyboardElmId div.button_capitalletterleft{font-size:1.3em;}
-#onScreenKeyboardElmId div.button_capitalletterright{ width:129px; font-size:1.3em;}
-#onScreenKeyboardElmId div.button_numberleft{width:172px; font-size:1.3em; margin-left:26px;}
-#onScreenKeyboardElmId div.button_numberright{width:129px; font-size:1.3em;}
-#onScreenKeyboardElmId div.button_space {width:376px;}
-#onScreenKeyboardElmId div.button_symbolsleft{width:172px; font-size:1.3em; margin-left:26px;}
-#onScreenKeyboardElmId div.button_symbolsright{width:129px; font-size:1.3em;}
+#onScreenKeyboardElmId .buttonOskbDown {background:none;background-color: #c9cdd5; -webkit-box-shadow:none;-moz-box-shadow: none;box-shadow: none;}
+#onScreenKeyboardElmId div.button_oskb_a {margin-left:26px;}
+#onScreenKeyboardElmId div.button_oskb_dash {margin-left:26px;}
+#onScreenKeyboardElmId div.button_oskb_underscore {margin-left:26px;}
+#onScreenKeyboardElmId div.button_oskb_enter {width:103px; font-size:1.3em; }
+#onScreenKeyboardElmId div.button_oskb_del{width:103px; font-size:1.3em;}
+#onScreenKeyboardElmId div.button_oskb_smallletter{font-size:1.3em;}
+#onScreenKeyboardElmId div.button_oskb_capitalletterleft{font-size:1.3em;}
+#onScreenKeyboardElmId div.button_oskb_capitalletterright{ width:129px; font-size:1.3em;}
+#onScreenKeyboardElmId div.button_oskb_numberleft{width:172px; font-size:1.3em; margin-left:26px;}
+#onScreenKeyboardElmId div.button_oskb_numberright{width:129px; font-size:1.3em;}
+#onScreenKeyboardElmId div.button_oskb_space {width:376px;}
+#onScreenKeyboardElmId div.button_oskb_symbolsleft{width:172px; font-size:1.3em; margin-left:26px;}
+#onScreenKeyboardElmId div.button_oskb_symbolsright{width:129px; font-size:1.3em;}
 
 
-#onScreenKeyboardElmId div.key {color:black; width:100%; height:100%; text-align:center; padding-top:12px; text-shadow: 0px 1px 1px #ffffff;filter: dropshadow(color=#ffffff, offx=0, offy=1);}
-#onScreenKeyboardElmId .key_del {padding-top:18px;}
-#onScreenKeyboardElmId .key_enter {padding-top:18px;}
-#onScreenKeyboardElmId .key_smallletter {padding-top:18px;}
-#onScreenKeyboardElmId .key_capitalletterleft {padding-top:18px;}
-#onScreenKeyboardElmId .key_capitalletterright {padding-top:18px;}
-#onScreenKeyboardElmId .key_number {padding-top:18px;}
-#onScreenKeyboardElmId .key_symbols {padding-top:18px;}
+#onScreenKeyboardElmId div.key_oskb {color:black; width:100%; height:100%; text-align:center; padding-top:12px; text-shadow: 0px 1px 1px #ffffff;filter: dropshadow(color=#ffffff, offx=0, offy=1);}
+#onScreenKeyboardElmId .key_oskb_del {padding-top:18px;}
+#onScreenKeyboardElmId .key_oskb_enter {padding-top:18px;}
+#onScreenKeyboardElmId .key_oskb_smallletter {padding-top:18px;}
+#onScreenKeyboardElmId .key_oskb_capitalletterleft {padding-top:18px;}
+#onScreenKeyboardElmId .key_oskb_capitalletterright {padding-top:18px;}
+#onScreenKeyboardElmId .key_oskb_number {padding-top:18px;}
+#onScreenKeyboardElmId .key_oskb_symbols {padding-top:18px;}
 
-#onScreenKeyboardElmId .button_default:hover {
+#onScreenKeyboardElmId .button_oskb_default:hover {
 border-color: rgba(82, 168, 236, 0.8);
 outline: 0;
 outline: thin dotted 9;

@@ -71,7 +71,7 @@ if ( ! class_exists( 'OnScreenKeyboardAdmin', false ) ) {
 				    'type'          => 'radio',
 				    'label'         => array ('pp_disabled' => __( 'Disabled onscreen keyboard for password protected posts and pages', 'on-screen-keyboard' ),
 							      'pp_enabled_standard' => __( 'Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.', 'on-screen-keyboard' ),
-							      'pp_enabled_numeric' => __( 'Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.', 'on-screen-keyboard' ), ),
+							      'pp_enabled_numeric' => __( 'Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.', 'on-screen-keyboard' ), ),
 				    'default'   => 'pp_disabled',
 				    'attributes'    => array(
 							     'pp_disabled' => ( $is_old ?  array('disabled' => 'disabled',) : array() ),
@@ -91,9 +91,9 @@ if ( ! class_exists( 'OnScreenKeyboardAdmin', false ) ) {
      */    
     public function do_onscreenkeyboard_settings_page() {   
 
-      // return;
-        echo '<h3>Show all the options as an array</h3>';
-        echo $this->oDebug->get( OnScreenKeyboardAdminPageFramework::getOption( 'OnScreenKeyboardOptions' ) );
+      return; //TEST/DEBUG:
+      echo '<h3>Show all the options as an array</h3>';
+      echo $this->oDebug->get( OnScreenKeyboardAdminPageFramework::getOption( 'OnScreenKeyboardOptions' ) );
  
     }
   }

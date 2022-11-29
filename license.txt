@@ -1,8 +1,9 @@
  * The WPMUDEV Appointments+ configuration tool
  *
  * To fill the appontments+ configuration with some specific items which we receive from the administration panels. Intended to streamline and strongly simplify the process of configuration.
- 
-2012-2019 K.Karamazen
+
+2014 Ported by Iain Redmill
+2022 K.Karamazen
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

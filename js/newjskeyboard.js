@@ -1,8 +1,8 @@
 var onScreenKeyboardJS = {
     settings: {
-        buttonClass: "button_default", // default button class
+        buttonClass: "button_oskb_default", // default button class
         onclick: "onScreenKeyboardJS.write();", // default onclick event for button
-        keyClass: "key", // default key class used to define style of text of the button
+        keyClass: "key_oskb", // default key class used to define style of text of the button
         text: {
             close: "close"
         }
@@ -25,10 +25,8 @@ var onScreenKeyboardJS = {
 	}
         onScreenKeyboardJS.addKeyDownEvent();
 
-	//https://www.w3schools.com/jsref/prop_win_innerwidth.asp
-	//        jQuery("onScreenKeyboardElmId #keyboard").css("width", "500px");	
-         onScreenKeyboardJS.show();
-         jQuery(':input').not('[type="reset"]').not('[type="submit"]').on('focus, click', function(e)
+        onScreenKeyboardJS.show();
+        jQuery(':input').not('[type="reset"]').not('[type="submit"]').on('focus, click', function(e)
          {
             onScreenKeyboardJS.currentElement = jQuery(this);
             onScreenKeyboardJS.currentElementCursorPosition = jQuery(this).getCursorPosition();
@@ -40,8 +38,8 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.show();
     },
     keyboardLayout: "", // it shows the html element where keyboard is generated
-    keyboardLayout_data_id: "", // kk71
-    keyboardLayout_data_keyboard: "", // kk71    
+    keyboardLayout_data_id: "", // id of the input html element, if given
+    keyboardLayout_data_keyboard: "", // if given, it can be "numeric" or "standard"
     currentKeyboard: "default", // it shows the which keyboard is used. If it's not set default keyboard is used.
     currentElement: null,
     generateKeyboard: function(keyboard) {
@@ -51,41 +49,41 @@ var onScreenKeyboardJS = {
         var text = "";
 
         var s = "";
-        s += "<div id=\"keyboard\">";
-        s += "<div id=\"keyboardHeader\">";
+        s += "<div id=\"keyboardOskb\">";
+        s += "<div id=\"keyboardOskbHeader\">";
         // s += "<div onclick=\"onScreenKeyboardJS.hide();\"><span>" + onScreenKeyboardJS.settings.text.close + "</span><span class=\"closex\"> X</span></div>"
         s += "</div>";
 
         /*small letter */
-        s += "<div id=\"keyboardSmallLetter\">";
+        s += "<div id=\"keyboardOskbSmallLetter\">";
         jQuery.each(onScreenKeyboardJS.keyboard[keyboard].smallLetter, function(i, key) {
             generate(key);
         });
         s += "</div>";
 
         /*capital letter*/
-        s += "<div id=\"keyboardCapitalLetter\">";
+        s += "<div id=\"keyboardOskbCapitalLetter\">";
         jQuery.each(onScreenKeyboardJS.keyboard[keyboard].capitalLetter, function(i, key) {
             generate(key);
         });
         s += "</div>";
 
         /*number*/
-        s += "<div id=\"keyboardNumber\">";
+        s += "<div id=\"keyboardOskbNumber\">";
         jQuery.each(onScreenKeyboardJS.keyboard[keyboard].number, function(i, key) {
             generate(key);
         });
         s += "</div>";
 
         /*symbols*/
-        s += "<div id=\"keyboardSymbols\">";
+        s += "<div id=\"keyboardOskbSymbols\">";
         jQuery.each(onScreenKeyboardJS.keyboard[keyboard].symbols, function(i, key) {
             generate(key);
         });
         s += "</div>";
 
-		/*onlynumber*/
-        s += "<div id=\"keyboardOnlyNumber\">";
+	/*onlynumber*/
+        s += "<div id=\"keyboardOskbOnlyNumber\">";
         jQuery.each(onScreenKeyboardJS.keyboard[keyboard].onlynumber, function(i, key) {
             generate(key);
         });
@@ -106,34 +104,34 @@ var onScreenKeyboardJS = {
         jQuery("#" + onScreenKeyboardJS.keyboardLayout).html(s);
     },
     addKeyDownEvent: function() {
-        jQuery("#keyboardCapitalLetter > div.button, #keyboardSmallLetter > div.button, #keyboardNumber > div.button, #keyboardSymbols > div.button").
-            bind('mousedown', (function() { jQuery(this).addClass("buttonDown"); })).
-            bind('mouseup', (function() { jQuery(this).removeClass("buttonDown"); })).
-            bind('mouseout', (function() { jQuery(this).removeClass("buttonDown"); }));
+        jQuery("#keyboardOskbCapitalLetter > div.button_oskb_default, #keyboardOskbSmallLetter > div.button_oskb_default, #keyboardOskbNumber > div.button_oskb_default, #keyboardOskbSymbols > div.button_oskb_default, #keyboardOskbOnlyNumber > div.button_oskb_default").
+            bind('mousedown', (function() { jQuery(this).addClass("buttonOskbDown"); })).
+            bind('mouseup', (function() { jQuery(this).removeClass("buttonOskbDown"); })).
+            bind('mouseout', (function() { jQuery(this).removeClass("buttonOskbDown"); }));
 
             //key focus down on actual keyboard key presses
             //todo:....
 
     },
     changeToSmallLetter: function() {
-        jQuery("#keyboardCapitalLetter,#keyboardNumber,#keyboardSymbols").css("display", "none");
-        jQuery("#keyboardSmallLetter").css("display", "block");
+        jQuery("#keyboardOskbCapitalLetter,#keyboardOskbNumber,#keyboardOskbSymbols").css("display", "none");
+        jQuery("#keyboardOskbSmallLetter").css("display", "block");
     },
     changeToCapitalLetter: function() {
-        jQuery("#keyboardCapitalLetter").css("display", "block");
-        jQuery("#keyboardSmallLetter,#keyboardNumber,#keyboardSymbols").css("display", "none");
+        jQuery("#keyboardOskbCapitalLetter").css("display", "block");
+        jQuery("#keyboardOskbSmallLetter,#keyboardOskbNumber,#keyboardOskbSymbols").css("display", "none");
     },
     changeToNumber: function() {
-        jQuery("#keyboardNumber").css("display", "block");
-        jQuery("#keyboardSymbols,#keyboardCapitalLetter,#keyboardSmallLetter").css("display", "none");
+        jQuery("#keyboardOskbNumber").css("display", "block");
+        jQuery("#keyboardOskbSymbols,#keyboardOskbCapitalLetter,#keyboardOskbSmallLetter").css("display", "none");
     },
     changeToSymbols: function() {
-        jQuery("#keyboardCapitalLetter,#keyboardNumber,#keyboardSmallLetter").css("display", "none");
-        jQuery("#keyboardSymbols").css("display", "block");
+        jQuery("#keyboardOskbCapitalLetter,#keyboardOskbNumber,#keyboardOskbSmallLetter").css("display", "none");
+        jQuery("#keyboardOskbSymbols").css("display", "block");
     },
     changeToOnlyNumber: function() {
-        jQuery("#keyboardOnlyNumber").css("display", "block");
-        jQuery("#keyboardSymbols,#keyboardCapitalLetter,#keyboardSmallLetter,#keyboardNumber").css("display", "none");
+        jQuery("#keyboardOskbOnlyNumber").css("display", "block");
+        jQuery("#keyboardOskbSymbols,#keyboardOskbCapitalLetter,#keyboardOskbSmallLetter,#keyboardOskbNumber").css("display", "none");
     },
 
     updateCursor: function()
@@ -190,10 +188,10 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.updateCursor();
     },
     show: function() {
-        jQuery("#keyboard").animate({ "bottom": "0" }, "slow", function() { });
+        jQuery("#keyboardOskb").animate({ "bottom": "0" }, "slow", function() { });
     },
     hide: function() {
-        jQuery("#keyboard").animate({ "bottom": "-350px" }, "slow", function() { });
+        jQuery("#keyboardOskb").animate({ "bottom": "-350px" }, "slow", function() { });
     },
     defaultKeyboard: {
         capitalLetter:
@@ -201,89 +199,89 @@ var onScreenKeyboardJS = {
         // 1st row
                { value: 81 },{ value: 87 },{ value: 69 },{ value: 82 },{ value: 84 },{ value: 89 },
                { value: 85 },{ value: 73 },{ value: 79 },{ value: 80 },
-               { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_default button_del", keyClass: "key key_del" },
+               { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_oskb_default button_oskb_del", keyClass: "key_oskb key_oskb_del" },
         // 2nd row
-               { value: 65, buttonClass: "button_default button_a" },{ value: 83 },{ value: 68 },{ value: 70 },
+               { value: 65, buttonClass: "button_oskb_default button_oskb_a" },{ value: 83 },{ value: 68 },{ value: 70 },
                { value: 71 },{ value: 72 },{ value: 74 },{ value: 75 },{ value: 76 },
-               { value: "Enter", isChar: "false", buttonClass: "button_default button_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key key_enter" },
+               { value: "Enter", isChar: "false", buttonClass: "button_oskb_default button_oskb_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key_oskb key_oskb_enter" },
         // 3rd row
-               { value: "abc", isChar: "false", buttonClass: "button_default button_smallletter", onclick: "onScreenKeyboardJS.changeToSmallLetter();", keyClass: "key key_smallletter" },
+               { value: "abc", isChar: "false", buttonClass: "button_oskb_default button_oskb_smallletter", onclick: "onScreenKeyboardJS.changeToSmallLetter();", keyClass: "key_oskb key_oskb_smallletter" },
                { value: 90 },{ value: 88 },{ value: 67 },{ value: 86 },{ value: 66 },{ value: 78 },
                { value: 77 },{ value: 44 },{ value: 46 },{ value: 64 },
         // 4th row
-               { value: "123", isChar: "false", buttonClass: "button_default button_numberleft", onclick: "onScreenKeyboardJS.changeToNumber();", keyClass: "key key_number" },
-               { value: "Space", isChar: "false", buttonClass: "button_default button_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key key_space" },
-               { value: "#@+", isChar: "false", buttonClass: "button_default button_symbolsright", onclick: "onScreenKeyboardJS.changeToSymbols();", keyClass: "key key_symbols" }
+               { value: "123", isChar: "false", buttonClass: "button_oskb_default button_oskb_numberleft", onclick: "onScreenKeyboardJS.changeToNumber();", keyClass: "key_oskb key_oskb_number" },
+               { value: "Space", isChar: "false", buttonClass: "button_oskb_default button_oskb_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key_oskb key_oskb_space" },
+               { value: "#@+", isChar: "false", buttonClass: "button_oskb_default button_oskb_symbolsright", onclick: "onScreenKeyboardJS.changeToSymbols();", keyClass: "key_oskb key_oskb_symbols" }
             ],
         smallLetter: [
         // 1st row
                 { value: 113 },{ value: 119 },{ value: 101 },{ value: 114 },{ value: 116 },
                 { value: 121 },{ value: 117 },{ value: 105 },{ value: 111 },{ value: 112 },
-                { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_default button_del", keyClass: "key key_del" },
+                { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_oskb_default button_oskb_del", keyClass: "key_oskb key_oskb_del" },
         // 2nd row
-                { value: 97, buttonClass: "button_default button_a" },{ value: 115 },{ value: 100 },{ value: 102 },
+                { value: 97, buttonClass: "button_oskb_default button_oskb_a" },{ value: 115 },{ value: 100 },{ value: 102 },
                 { value: 103 },{ value: 104 },{ value: 106 },{ value: 107 },{ value: 108 },
-                { value: "Enter", isChar: "false", buttonClass: "button_default button_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key key_enter" },
+                { value: "Enter", isChar: "false", buttonClass: "button_oskb_default button_oskb_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key_oskb key_oskb_enter" },
         // 3rd row
-                { value: "ABC", isChar: "false", buttonClass: "button_default button_capitalletterleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key key_capitalletterleft" },
+                { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterleft" },
                 { value: 122 },{ value: 120 },{ value: 99 },{ value: 118 },{ value: 98 },
                 { value: 110 },{ value: 109 },{ value: 44 },{ value: 46 },{ value: 64 },
         // 4th row
-                { value: "123", isChar: "false", buttonClass: "button_default button_numberleft", onclick: "onScreenKeyboardJS.changeToNumber();", keyClass: "key key_number" },
-                // { value: 32, buttonClass: "button_default button_space" },
-                { value: "Space", isChar: "false", buttonClass: "button_default button_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key key_space" },
-                { value: "#@+", isChar: "false", buttonClass: "button_default button_symbolsright", onclick: "onScreenKeyboardJS.changeToSymbols();", keyClass: "key key_symbols" }
+                { value: "123", isChar: "false", buttonClass: "button_oskb_default button_oskb_numberleft", onclick: "onScreenKeyboardJS.changeToNumber();", keyClass: "key_oskb key_oskb_number" },
+                // { value: 32, buttonClass: "button_oskb_default button_oskb_space" },
+                { value: "Space", isChar: "false", buttonClass: "button_oskb_default button_oskb_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key_oskb key_oskb_space" },
+                { value: "#@+", isChar: "false", buttonClass: "button_oskb_default button_oskb_symbolsright", onclick: "onScreenKeyboardJS.changeToSymbols();", keyClass: "key_oskb key_oskb_symbols" }
             ],
         number: [
         // 1st row
                 { value: 49 },{ value: 50 },{ value: 51 },{ value: 52 },{ value: 53 },{ value: 54 },
                 { value: 55 },{ value: 56 },{ value: 57 },{ value: 48 },
-                { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_default button_del", keyClass: "key key_del" },
+                { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_oskb_default button_oskb_del", keyClass: "key_oskb key_oskb_del" },
         // 2nd row
-                { value: 45, buttonClass: "button_default button_dash" },{ value: 47 },{ value: 58 },{ value: 59 },
+                { value: 45, buttonClass: "button_oskb_default button_oskb_dash" },{ value: 47 },{ value: 58 },{ value: 59 },
                 { value: 40 },{ value: 41 },{ value: 36 },{ value: 38 },{ value: 64 },
-                { value: "Enter", isChar: "false", buttonClass: "button_default button_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key key_enter" },
+                { value: "Enter", isChar: "false", buttonClass: "button_oskb_default button_oskb_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key_oskb key_oskb_enter" },
         //3rd row
-                // { value: "ABC", isChar: "false", buttonClass: "button_default button_capitalletterleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter()", keyClass: "key key_capitalletterleft" },
-                { value: "", isChar: "false", buttonClass: "button_default button_capitalletterleft", onclick: "", keyClass: "key" },
+                // { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter()", keyClass: "key_oskb key_oskb_capitalletterleft" },
+                { value: "", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterleft", onclick: "", keyClass: "key_oskb" },
                 { value: 63 },{ value: 33 },{ value: 34 },{ value: 124 },{ value: 92 },{ value: 42 },{ value: 61 },{ value: 43 },
-                // { value: "ABC", isChar: "false", buttonClass: "button_default button_capitalletterright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key key_capitalletterright" },
-                { value: "", isChar: "false", buttonClass: "button_default", onclick: "", keyClass: "key" },
-                { value: "", isChar: "false", buttonClass: "button_default", onclick: "", keyClass: "key" },
+                // { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterright" },
+                { value: "", isChar: "false", buttonClass: "button_oskb_default", onclick: "", keyClass: "key_oskb" },
+                { value: "", isChar: "false", buttonClass: "button_oskb_default", onclick: "", keyClass: "key_oskb" },
 
         // 4th row
-                { value: "ABC", isChar: "false", buttonClass: "button_default button_numberleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key key_capitalletterleft" },
-                { value: "Space", isChar: "false", buttonClass: "button_default button_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key key_space" },
-                { value: "#@+", isChar: "false", buttonClass: "button_default button_symbolsright", onclick: "onScreenKeyboardJS.changeToSymbols();", keyClass: "key key_symbols" }
+                { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_numberleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterleft" },
+                { value: "Space", isChar: "false", buttonClass: "button_oskb_default button_oskb_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key_oskb key_oskb_space" },
+                { value: "#@+", isChar: "false", buttonClass: "button_oskb_default button_oskb_symbolsright", onclick: "onScreenKeyboardJS.changeToSymbols();", keyClass: "key_oskb key_oskb_symbols" }
             ],
         symbols: [
         // 1st row
             { value: 91 },{ value: 93 },{ value: 123 },{ value: 125 },{ value: 35 },{ value: 37 },
             { value: 94 },{ value: 42 },{ value: 43 },{ value: 61 },
-            { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_default button_del", keyClass: "key key_del" },
+            { value: "Delete", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_oskb_default button_oskb_del", keyClass: "key_oskb key_oskb_del" },
         // 2nd row
-            { value: 95, buttonClass: "button_default button_underscore" },{ value: 92 },{ value: 124 },{ value: 126 },
+            { value: 95, buttonClass: "button_oskb_default button_oskb_underscore" },{ value: 92 },{ value: 124 },{ value: 126 },
             { value: 60 },{ value: 62 },
             { value: "€", isChar: "false", onclick: "onScreenKeyboardJS.writeSpecial('€');" },
             { value: 163 },{ value: 165 },
-            { value: "Enter", isChar: "false", buttonClass: "button_default button_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key key_enter" },
+            { value: "Enter", isChar: "false", buttonClass: "button_oskb_default button_oskb_enter", onclick: "onScreenKeyboardJS.enter();", keyClass: "key_oskb key_oskb_enter" },
         // 3rd row
-            // { value: "ABC", isChar: "false", buttonClass: "button_default button_capitalletterleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key key_capitalletterleft" },
-            { value: "", isChar: "false", buttonClass: "button_default button_capitalletterleft", onclick: "", keyClass: "key" },
+            // { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterleft", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterleft" },
+            { value: "", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterleft", onclick: "", keyClass: "key_oskb" },
             { value: 46 },{ value: 44 },{ value: 63 },{ value: 33 },{ value: 39 },{ value: 34 },{ value: 59 },{ value: 92 },
-            // { value: "ABC", isChar: "false", buttonClass: "button_default button_capitalletterright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key key_capitalletterright" },
-            { value: "", isChar: "false", buttonClass: "button_default", onclick: "", keyClass: "key" },
-            { value: "", isChar: "false", buttonClass: "button_default", onclick: "", keyClass: "key" },
+            // { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_capitalletterright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterright" },
+            { value: "", isChar: "false", buttonClass: "button_oskb_default", onclick: "", keyClass: "key_oskb" },
+            { value: "", isChar: "false", buttonClass: "button_oskb_default", onclick: "", keyClass: "key_oskb" },
         // 4th row
-            { value: "123", isChar: "false", buttonClass: "button_default button_numberleft", onclick: "onScreenKeyboardJS.changeToNumber();", keyClass: "key key_number" },
-            { value: "Space", isChar: "false", buttonClass: "button_default button_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key key_space" },
-            { value: "ABC", isChar: "false", buttonClass: "button_default button_symbolsright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key key_capitalletterleft" },
+            { value: "123", isChar: "false", buttonClass: "button_oskb_default button_oskb_numberleft", onclick: "onScreenKeyboardJS.changeToNumber();", keyClass: "key_oskb key_oskb_number" },
+            { value: "Space", isChar: "false", buttonClass: "button_oskb_default button_oskb_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key_oskb key_oskb_space" },
+            { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_symbolsright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterleft" },
          ],
 		onlynumber: [
         // 1st row
                 { value: 49 },{ value: 50 },{ value: 51 },{ value: 52 },{ value: 53 },{ value: 54 },
                 { value: 55 },{ value: 56 },{ value: 57 },{ value: 48 },
-                { value: "x", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_default button_del", keyClass: "key key_del" }
+                { value: "x", isChar: "false", onclick: "onScreenKeyboardJS.del()", buttonClass: "button_oskb_default button_oskb_del", keyClass: "key_oskb key_oskb_del" }
             ]
     }
 }

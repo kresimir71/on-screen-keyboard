@@ -23,7 +23,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 * @var         array $options Array of config options
 		 * @since       1.3
 		 */
-		protected $options = array();
+	        protected $options = array();
 
 		/**
 		 * Use this value as the text domain when translating strings from this plugin. It should match
@@ -94,29 +94,8 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 */
 		public function get_plugin_options() {
 
-			// Setup defaults.
-			$defaults = array(
-				'demo' => false,
-			);
+		  $this->options = get_option('OnScreenKeyboardOptions', array());
 
-			// If multisite is enabled.
-			if ( is_multisite() ) {
-
-				// Get network activated plugins.
-				$plugins = get_site_option( 'active_sitewide_plugins' );
-
-				foreach ( $plugins as $file => $plugin ) {
-					if ( strpos( $file, 'on-screen-keyboard.php' ) !== false ) {
-						$this->plugin_network_activated = true;
-						$this->options                  = get_site_option( 'OnScreenKeyboard', $defaults );
-					}
-				}
-			}
-
-			// If options aren't set, grab them now!
-			if ( empty( $this->options ) ) {
-				$this->options = get_option( 'OnScreenKeyboard', $defaults );
-			}
 		}
 
 		/**
@@ -129,19 +108,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		public function includes() {
 
 		  if (is_admin()) $this->include_admin();
-			// Include Predux_Core.
-			// if ( file_exists( dirname( __FILE__ ) . '/PreduxCore/framework.php' ) ) {
-			// 	require_once dirname( __FILE__ ) . '/PreduxCore/framework.php';
-			// }
 
-			// if ( isset( Predux_Core::$as_plugin ) ) {
-			// 	Predux_Core::$as_plugin = true;
-			// }
-
-			// // Include demo config, if demo mode is active.
-			// if ( $this->options['demo'] && file_exists( dirname( __FILE__ ) . '/sample/sample-config.php' ) ) {
-			// 	require_once dirname( __FILE__ ) . '/sample/sample-config.php';
-			// }
 		}
 
 		/**
@@ -187,8 +154,8 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 */
 
 		private function is_old_version(){
-		  $options = get_option('OnScreenKeyboardOptions', array());
-		  $version = isset($options['version']) ? $options['version'] : 'old';
+		  $adminOptions = $this->options;
+		  $version = isset($adminOptions['version']) ? $adminOptions['version'] : 'old';
 		  return $version == 'old';
 		}
 
@@ -200,9 +167,9 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 */
 
 		private function is_numeric_password_protected_posts(){
-		  $options = get_option('OnScreenKeyboardOptions', array());
-		  $enabled = isset($options['PasswordProtectedPosts']) ? $options['PasswordProtectedPosts']=='pp_enabled_numeric' : false;
-		  return $enabled == 1;
+		  $adminOptions = $this->options;
+		  $enabled = isset($adminOptions['PasswordProtectedPosts']) ? $adminOptions['PasswordProtectedPosts']=='pp_enabled_numeric' : false;
+		  return $enabled;
 		}
 
 		/**
@@ -213,9 +180,9 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 */
 
 		private function is_standard_password_protected_posts(){
-		  $options = get_option('OnScreenKeyboardOptions', array());
-		  $enabled = isset($options['PasswordProtectedPosts']) ? $options['PasswordProtectedPosts']=='pp_enabled_standard' : false;
-		  return $enabled == 1;
+		  $adminOptions = $this->options;
+		  $enabled = isset($adminOptions['PasswordProtectedPosts']) ? $adminOptions['PasswordProtectedPosts']=='pp_enabled_standard' : false;
+		  return $enabled;
 		}
 		
 		/**
@@ -277,7 +244,8 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 				self::single_deactivate();
 			}
 
-			delete_option( 'OnScreenKeyboard' );
+			// rather on ununstall
+			//delete_option( 'OnScreenKeyboardOptions' );
 		}
 
 		/**
@@ -374,7 +342,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		}
 
 		/**
-		 * JS and CSS of the old version
+		 * JS and CSS of the old version (deprecated)
 		 * // We need some CSS to position the paragraph
 		 * @access      public
 		 * @since       1.3
@@ -436,7 +404,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 }
 
 		 /**
-		 * admin pages
+		 * replace password protected post form: add numeric on screen keyboard
 		 * 
 		 * @access      public
 		 * @since       1.3
@@ -445,7 +413,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 		 public function my_custom_password_form_with_numeric_keyboard() {
 		   global $post;
-		   $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+		   $label = 'oskb_pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
     $output = '
     <div class="boldgrid-section">
         <div class="container">
@@ -462,7 +430,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 }
 
 		 /**
-		 * admin pages
+		 * replace password protected post form: add standard on screen keyboard
 		 * 
 		 * @access      public
 		 * @since       1.3
@@ -471,7 +439,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 		 public function my_custom_password_form_with_standard_keyboard() {
 		   global $post;
-		   $label = 'pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
+		   $label = 'oskb_pwbox-' . ( empty( $post->ID ) ? rand() : $post->ID );
     $output = '
     <div class="boldgrid-section">
         <div class="container">

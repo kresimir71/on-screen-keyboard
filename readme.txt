@@ -1,12 +1,10 @@
 === Plugin Name ===
-Contributors: iainredmill
-Donate link: http://onscreenkeyboard.co.nf/
-Tags: comments, , onscreenkeyboard, onscreen, screen, keyboard, data-entry, mouse, touchscreen
-Requires at least: 3.0.1
-Tested up to: 4.1.1
-Stable tag: 1.2
-License: GPLv2 or later
-License URI: http://directory.fsf.org/wiki/License:Expat
+Contributors: iainredmill, kk71
+Tags: comments, , onscreenkeyboard, onscreen, screen, keyboard, data-entry, mouse, touchscreen, Password Protect, password protection, password, restrict content
+Requires at least: 4.6
+Tested up to: 6.1.1
+Stable tag: 1.3
+License: GPLv3 or later
 
 
 This plugin adds an onscreen keyboard powered by Javascript/JQuery to your page on demand.
@@ -18,6 +16,8 @@ on github with his permission under the above licence by Iain Redmill, now worki
 allowing mouse based input or input when working from a touch screen device.  Keyboard settings etc
 can be modified by editing the file.  To add a keyboard, enter [oskb] within your page where you wish 
 it to appear.
+Furthermore. Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.
+Furthermore. Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.
 
 
 == Installation ==
@@ -25,7 +25,7 @@ it to appear.
 1. Upload 'onscreenkeyboard.zip' and extract to the `/wp-content/plugins/on-screen-keyboard` directory
 or use the wordpress plugin installer
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `[oskb]` in your page at the point you wish an keyboard to appear
+1. Place `[oskb]` in your page at the point you wish a keyboard to appear
 
 == Frequently Asked Questions ==
 
@@ -35,14 +35,15 @@ There is a bug in v1.0, preventing the plugin triggering, please upgrade to v1.2
 
 == Screenshots ==
 
-See http://onscreenkeyboard.co.nf/ for working demo
-
 == Upgrade Notice ==
 
+Version 1.3:  Numerical or standard keyboard can be used for entering password protected posts.
 Version 1.2:  Installer bug fixed, which prevented plugin working - please upgrade if you are having problems making the keyboard appear.
 
 == Changelog ==
 
+= 1.3 =
+* Numerical or standard keyboard can be used for entering password protected posts.
 = 1.2 =
 * Installer debugged, now installs, and keyboard displays properly.
 = 1.1 =

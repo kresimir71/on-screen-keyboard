@@ -13,3 +13,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // TODO: Define uninstall functionality here.
+
+delete_option( 'OnScreenKeyboardOptions' );
