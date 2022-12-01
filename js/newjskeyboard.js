@@ -3,9 +3,9 @@ var onScreenKeyboardJS = {
         buttonClass: "button_oskb_default", // default button class
         onclick: "onScreenKeyboardJS.write();", // default onclick event for button
         keyClass: "key_oskb", // default key class used to define style of text of the button
-        text: {
-            close: "close"
-        }
+        // text: {
+        //     close: "close"
+        // }
     },
     "keyboard": [], // different keyboards can be set to this variable in order to switch between keyboards easily.
     init: function(elem, keyboard) {
@@ -19,7 +19,7 @@ var onScreenKeyboardJS = {
             onScreenKeyboardJS.generateKeyboard(keyboard);
         else
             onScreenKeyboardJS.generateKeyboard("default");
-
+	
 	if ( onScreenKeyboardJS.keyboardLayout_data_keyboard != null && onScreenKeyboardJS.keyboardLayout_data_keyboard == "numeric" ){
 	    onScreenKeyboardJS.changeToOnlyNumber();
 	}
@@ -32,14 +32,36 @@ var onScreenKeyboardJS = {
             onScreenKeyboardJS.currentElementCursorPosition = jQuery(this).getCursorPosition();
             console.log('keyboard is now focused on '+onScreenKeyboardJS.currentElement.attr('name')+' at pos('+onScreenKeyboardJS.currentElementCursorPosition+')');
          });
+
+	if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
+	    // input element is given from html
+	    onScreenKeyboardJS.currentElement = jQuery("#"+onScreenKeyboardJS.keyboardLayout_data_id);
+	    onScreenKeyboardJS.currentElement.trigger( "focus" ); // same as focus()
+	} else {
+	    //first input focus
+	    var $firstInput;
+	    $firstInput = null;
+	    try {
+		$firstInput = jQuery(':input').first().focus();
+	    } catch (e) {
+		// no input element
+	    }
+            onScreenKeyboardJS.currentElement = $firstInput;
+	}
+
+	onScreenKeyboardJS.currentElementCursorPosition =
+	    onScreenKeyboardJS.currentElement != null
+	    ? jQuery(onScreenKeyboardJS.currentElement).getCursorPosition()
+	    : 0;
+	
     },
     focus: function(t) {
         onScreenKeyboardJS.currentElement = jQuery(t);
         onScreenKeyboardJS.show();
     },
     keyboardLayout: "", // it shows the html element where keyboard is generated
-    keyboardLayout_data_id: "", // id of the input html element, if given
-    keyboardLayout_data_keyboard: "", // if given, it can be "numeric" or "standard"
+    keyboardLayout_data_id: null, // id of the input html element, if given
+    keyboardLayout_data_keyboard: null, // if given, it can be "numeric" or "standard"
     currentKeyboard: "default", // it shows the which keyboard is used. If it's not set default keyboard is used.
     currentElement: null,
     generateKeyboard: function(keyboard) {
@@ -116,18 +138,22 @@ var onScreenKeyboardJS = {
     changeToSmallLetter: function() {
         jQuery("#keyboardOskbCapitalLetter,#keyboardOskbNumber,#keyboardOskbSymbols").css("display", "none");
         jQuery("#keyboardOskbSmallLetter").css("display", "block");
+	onScreenKeyboardJS.updateCursor();	
     },
     changeToCapitalLetter: function() {
         jQuery("#keyboardOskbCapitalLetter").css("display", "block");
         jQuery("#keyboardOskbSmallLetter,#keyboardOskbNumber,#keyboardOskbSymbols").css("display", "none");
+	onScreenKeyboardJS.updateCursor();	
     },
     changeToNumber: function() {
         jQuery("#keyboardOskbNumber").css("display", "block");
         jQuery("#keyboardOskbSymbols,#keyboardOskbCapitalLetter,#keyboardOskbSmallLetter").css("display", "none");
+	onScreenKeyboardJS.updateCursor();	
     },
     changeToSymbols: function() {
         jQuery("#keyboardOskbCapitalLetter,#keyboardOskbNumber,#keyboardOskbSmallLetter").css("display", "none");
         jQuery("#keyboardOskbSymbols").css("display", "block");
+	onScreenKeyboardJS.updateCursor();
     },
     changeToOnlyNumber: function() {
         jQuery("#keyboardOskbOnlyNumber").css("display", "block");
@@ -137,54 +163,69 @@ var onScreenKeyboardJS = {
     updateCursor: function()
     {
         //input cursor focus and position during typing
-        onScreenKeyboardJS.currentElement.setCursorPosition(onScreenKeyboardJS.currentElementCursorPosition);
+	if( onScreenKeyboardJS.currentElement != null ){
+            //onScreenKeyboardJS.currentElement.setCursorPosition(onScreenKeyboardJS.currentElementCursorPosition);
+	    onScreenKeyboardJS.currentElement.focus();
+	}
     },
     write: function(m) {
+	if( onScreenKeyboardJS.currentElement == null ) return;	    
+	onScreenKeyboardJS.currentElementCursorPosition = jQuery(onScreenKeyboardJS.currentElement).getCursorPosition();
         var a = onScreenKeyboardJS.currentElement.val(),
             b = String.fromCharCode(m),
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos), b, a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
+        //onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
 	console.log(output);
-	if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
-	    jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
-	    if(output.length == 12 && /^\d+$/.test(output) ) jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id+"button").click(); //kk71
-	}
 
+	//jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
+	try {
+	    // automatically submit password if 12 digits (this can only happen if numeric keyboard is used, see php)
+	    if(output.length == 12 && /^\d+$/.test(output) ) jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id+"OskbPasswordProtectedPageButton").click();
+	} catch (e) {
+	    // button does not exist
+	}
     },
     del: function() {
+	if( onScreenKeyboardJS.currentElement == null ) return;	    
+	onScreenKeyboardJS.currentElementCursorPosition = jQuery(onScreenKeyboardJS.currentElement).getCursorPosition();
         var a = onScreenKeyboardJS.currentElement.val(),
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos-1), a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        onScreenKeyboardJS.currentElementCursorPosition--; //-1 cursor
+        //onScreenKeyboardJS.currentElementCursorPosition--; //-1 cursor
         onScreenKeyboardJS.updateCursor();
-	if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
-	    jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
-	}
+	// if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
+	//     jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
+	// }
     },
     enter: function() {
+	if( onScreenKeyboardJS.currentElement == null ) return;	    
         var t = onScreenKeyboardJS.currentElement.val();
         onScreenKeyboardJS.currentElement.val(t + "\n");
     },
     space: function() {
+	if( onScreenKeyboardJS.currentElement == null ) return;	    
+	onScreenKeyboardJS.currentElementCursorPosition = jQuery(onScreenKeyboardJS.currentElement).getCursorPosition();	
         var a = onScreenKeyboardJS.currentElement.val(),
             b = " ",
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos), b, a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
+        //onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
     },
     writeSpecial: function(m) {
+	if( onScreenKeyboardJS.currentElement == null ) return;	    
+	onScreenKeyboardJS.currentElementCursorPosition = jQuery(onScreenKeyboardJS.currentElement).getCursorPosition();	
         var a = onScreenKeyboardJS.currentElement.val(),
             b = String.fromCharCode(m),
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos), b, a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
+        //onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
     },
     show: function() {
