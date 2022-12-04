@@ -30,7 +30,7 @@ var onScreenKeyboardJS = {
          {
             onScreenKeyboardJS.currentElement = jQuery(this);
             onScreenKeyboardJS.currentElementCursorPosition = jQuery(this).getCursorPosition();
-            console.log('keyboard is now focused on '+onScreenKeyboardJS.currentElement.attr('name')+' at pos('+onScreenKeyboardJS.currentElementCursorPosition+')');
+            //console.log('keyboard is now focused on '+onScreenKeyboardJS.currentElement.attr('name')+' at pos('+onScreenKeyboardJS.currentElementCursorPosition+')');
          });
 
 	if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
@@ -156,15 +156,15 @@ var onScreenKeyboardJS = {
 	onScreenKeyboardJS.updateCursor();
     },
     changeToOnlyNumber: function() {
-        jQuery("#keyboardOskbOnlyNumber").css("display", "block");
         jQuery("#keyboardOskbSymbols,#keyboardOskbCapitalLetter,#keyboardOskbSmallLetter,#keyboardOskbNumber").css("display", "none");
+        jQuery("#keyboardOskbOnlyNumber").css("display", "block");
     },
 
     updateCursor: function()
     {
         //input cursor focus and position during typing
 	if( onScreenKeyboardJS.currentElement != null ){
-            //onScreenKeyboardJS.currentElement.setCursorPosition(onScreenKeyboardJS.currentElementCursorPosition);
+            onScreenKeyboardJS.currentElement.setCursorPosition(onScreenKeyboardJS.currentElementCursorPosition);
 	    onScreenKeyboardJS.currentElement.focus();
 	}
     },
@@ -176,7 +176,7 @@ var onScreenKeyboardJS = {
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos), b, a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        //onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
+        onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
 	console.log(output);
 
@@ -193,9 +193,9 @@ var onScreenKeyboardJS = {
 	onScreenKeyboardJS.currentElementCursorPosition = jQuery(onScreenKeyboardJS.currentElement).getCursorPosition();
         var a = onScreenKeyboardJS.currentElement.val(),
             pos = onScreenKeyboardJS.currentElementCursorPosition,
-            output = [a.slice(0, pos-1), a.slice(pos)].join('');
+            output = [a.slice(0, pos>0 ? pos-1: 0), a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        //onScreenKeyboardJS.currentElementCursorPosition--; //-1 cursor
+        if (pos>0) onScreenKeyboardJS.currentElementCursorPosition--; //-1 cursor
         onScreenKeyboardJS.updateCursor();
 	// if ( onScreenKeyboardJS.keyboardLayout_data_id != null){
 	//     jQuery("#" + onScreenKeyboardJS.keyboardLayout_data_id).val(output); //kk71
@@ -214,7 +214,7 @@ var onScreenKeyboardJS = {
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos), b, a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        //onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
+        onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
     },
     writeSpecial: function(m) {
@@ -225,15 +225,15 @@ var onScreenKeyboardJS = {
             pos = onScreenKeyboardJS.currentElementCursorPosition,
             output = [a.slice(0, pos), b, a.slice(pos)].join('');
         onScreenKeyboardJS.currentElement.val(output);
-        //onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
+        onScreenKeyboardJS.currentElementCursorPosition++; //+1 cursor
         onScreenKeyboardJS.updateCursor();
     },
     show: function() {
         jQuery("#keyboardOskb").animate({ "bottom": "0" }, "slow", function() { });
     },
-    hide: function() {
-        jQuery("#keyboardOskb").animate({ "bottom": "-350px" }, "slow", function() { });
-    },
+    //hide: function() {
+    //    jQuery("#keyboardOskb").animate({ "bottom": "-350px" }, "slow", function() { });
+    //},
     defaultKeyboard: {
         capitalLetter:
             [
