@@ -351,10 +351,10 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 		 public function onscreenkeyboard_css() {
 		   // This makes sure that the positioning is also good for right-to-left languages
-		   wp_register_style('onscreenkeyboardcss', plugins_url( 'on-screen-keyboard/css/jskeyboard.css'),array(),'1.1','screen');
+		   wp_register_style('onscreenkeyboardcss', plugins_url( 'css/jskeyboard.css', __FILE__),array(),'1.1','screen');
 		   wp_enqueue_style( 'onscreenkeyboardcss' );	
-		   wp_register_script('onscreenkeyboard', plugins_url( 'on-screen-keyboard/js/jskeyboard.js'), array('jquery'),'1.1', true);
-		   wp_register_script('onscreenkeyboard.main', plugins_url( 'on-screen-keyboard/js/jskeyboard.main.js'), array('jquery'),'1.1', true);
+		   wp_register_script('onscreenkeyboard', plugins_url( 'js/jskeyboard.js', __FILE__),array('jquery'),'1.1', true);
+		   wp_register_script('onscreenkeyboard.main', plugins_url( 'js/jskeyboard.main.js', __FILE__),array('jquery'),'1.1', true);
 		   wp_enqueue_script('onscreenkeyboard');
 		   wp_enqueue_script('onscreenkeyboard.main');
 		 }
@@ -369,10 +369,10 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 		 public function new_onscreenkeyboard_css() {
 
-		   wp_register_style('newonscreenkeyboardcss', plugins_url( 'on-screen-keyboard/css/newjskeyboard.css'),array(),'1.1','screen');
+		   wp_register_style('newonscreenkeyboardcss', plugins_url( 'css/newjskeyboard.css', __FILE__),array(),'1.1','screen');
 		   wp_enqueue_style( 'newonscreenkeyboardcss' );	
-		   wp_register_script('newonscreenkeyboard', plugins_url( 'on-screen-keyboard/js/newjskeyboard.js'), array('jquery'),'1.1', true);
-		   wp_register_script('newonscreenkeyboard.main', plugins_url( 'on-screen-keyboard/js/newjskeyboard.main.js'), array('jquery'),'1.1', true);
+		   wp_register_script('newonscreenkeyboard', plugins_url( 'js/newjskeyboard.js', __FILE__),array('jquery'),'1.1', true);
+		   wp_register_script('newonscreenkeyboard.main', plugins_url( 'js/newjskeyboard.main.js', __FILE__),array('jquery'),'1.1', true);
 		   wp_enqueue_script('newonscreenkeyboard');
 		   wp_enqueue_script('newonscreenkeyboard.main');
 		 }
