@@ -14,4 +14,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 // TODO: Define uninstall functionality here.
 
-delete_option( 'OnScreenKeyboardOptions' );
+delete_option( 'on_screen_keyboard_version_field' );
+delete_option( 'on_screen_keyboard_ppposts_field' );
