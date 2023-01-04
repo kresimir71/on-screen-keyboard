@@ -399,7 +399,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 
 		 public function include_admin(){
 
-		   include( dirname( __FILE__ ) . '/admin.php' );
+		   include( dirname( __FILE__ ) . '/admin/admin.php' );
 
 		 }
 
