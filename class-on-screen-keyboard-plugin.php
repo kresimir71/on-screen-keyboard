@@ -23,7 +23,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 * @var         array $options Array of config options
 		 * @since       1.3
 		 */
-	        protected $options = array();
+	        public $options = array();
 
 		/**
 		 * Use this value as the text domain when translating strings from this plugin. It should match
@@ -94,8 +94,12 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 		 */
 		public function get_plugin_options() {
 
-		  $this->options = get_option('OnScreenKeyboardOptions', array());
-
+		  $this->options = array();
+		  $this->options['version'] = get_option('on_screen_keyboard_version_field', 'new');
+		  if ($this->options['version'] == "") $this->options['version'] = 'new';
+		  $this->options['PasswordProtectedPosts'] = get_option('on_screen_keyboard_ppposts_field', 'pp_disabled');
+		  if ($this->options['PasswordProtectedPosts'] == "") $this->options['PasswordProtectedPosts'] = 'pp_disabled';
+		  
 		}
 
 		/**

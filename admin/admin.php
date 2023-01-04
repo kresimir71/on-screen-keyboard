@@ -45,6 +45,8 @@ function on_screen_keyboard_settings_init() {
 		     'on_screen_keyboard_variants_section'
 		     );
 
+  register_setting( 'on-screen-keyboard-admin-page', 'on_screen_keyboard_version_field' );
+  
   add_settings_field(
 		     'on_screen_keyboard_ppposts_field',
 		     __( 'On pasword protected posts and pages:', 'on-screen-keyboard' ),
@@ -53,7 +55,7 @@ function on_screen_keyboard_settings_init() {
 		     'on_screen_keyboard_variants_section'
 		     );
 
-  register_setting( 'on-screen-keyboard-admin-page', 'on_screen_keyboard_version_field' );
+  register_setting( 'on-screen-keyboard-admin-page', 'on_screen_keyboard_ppposts_field' );
 }
 
 
@@ -63,31 +65,39 @@ function on_screen_keyboard_variants_section_callback_function() {
 
 
 function on_screen_keyboard_variants_markup() {
+    $adminoptions = OnScreenKeyboard::instance()->options;
+    $toCheck=array( "old", "new");
+    $checked = array_map(function($val) use ($adminoptions) { return ( $val == $adminoptions['version'] ? "checked" : "" ); }, $toCheck);
+
     ?>
   <!--
     <label for="my-input"><?php _e( 'My Input' ); ?></label>
     <input type="text" id="on_screen_keyboard_version_field" name="on_screen_keyboard_version_field" value="<?php echo get_option( 'on_screen_keyboard_version_field' ); ?>">
 -->
 							
-  <input type="radio" id="on_screen_keyboard_version_field1" name="on_screen_keyboard_version_field" value="old">
+  <input type="radio" id="on_screen_keyboard_version_field1" name="on_screen_keyboard_version_field" value="old" <?php echo $checked[0]; ?> >
   <label for="on_screen_keyboard_version_field1">Old version (deprecated). It implements [oskb] shortcode.</label><br>
-  <input type="radio" id="on_screen_keyboard_version_field2" name="on_screen_keyboard_version_field" value="new">
+  <input type="radio" id="on_screen_keyboard_version_field2" name="on_screen_keyboard_version_field" value="new" <?php echo $checked[1]; ?> >
   <label for="on_screen_keyboard_version_field2">New version. It implements [oskb] shortcode and optional facilities below.</label><br>
     <?php
 }
 
 function on_screen_keyboard_ppposts_markup() {
+  $adminoptions = OnScreenKeyboard::instance()->options;
+  $toCheck=array( "pp_disabled", "pp_enabled_standard", "pp_enabled_numeric");
+  $checked = array_map(function($val) use ($adminoptions) { return ( $val == $adminoptions['PasswordProtectedPosts'] ? "checked" : "" ); }, $toCheck);
+  $disabled = $adminoptions['version'] == 'old' ? 'disabled' : '' ;
     ?>
-  <input type="radio" id="on_screen_keyboard_ppposts_field1" name="on_screen_keyboard_ppposts_field" value="old">
+    <input type="radio" id="on_screen_keyboard_ppposts_field1" name="on_screen_keyboard_ppposts_field" value="pp_disabled" <?php echo $checked[0]; ?> <?php echo $disabled; ?> >
   <label for="on_screen_keyboard_ppposts_field1">Disabled onscreen keyboard for password protected posts and pages.</label><br>
-  <input type="radio" id="on_screen_keyboard_ppposts_field2" name="on_screen_keyboard_ppposts_field" value="new">
+  <input type="radio" id="on_screen_keyboard_ppposts_field2" name="on_screen_keyboard_ppposts_field" value="pp_enabled_standard" <?php echo $checked[1]; ?> <?php echo $disabled; ?> >
   <label for="on_screen_keyboard_ppposts_field2">Enable onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.</label><br>
-  <input type="radio" id="on_screen_keyboard_ppposts_field3" name="on_screen_keyboard_ppposts_field" value="new">
+  <input type="radio" id="on_screen_keyboard_ppposts_field3" name="on_screen_keyboard_ppposts_field" value="pp_enabled_numeric" <?php echo $checked[2]; ?> <?php echo $disabled; ?> >
   <label for="on_screen_keyboard_ppposts_field3">Enable onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically. (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.</label><br>
     <?php
 }
 
-function register_on-screen-keyboard-admin-page_scripts() {
+function register_on_screen_keyboard_admin_page_scripts() {
 
   wp_register_style( 'on-screen-keyboard-admin-css', plugins_url( 'admin/admin.css' ) );
 
@@ -95,9 +105,9 @@ function register_on-screen-keyboard-admin-page_scripts() {
 
 }
 
-add_action( 'admin_enqueue_scripts', 'register_on-screen-keyboard-admin-page_scripts' );
+add_action( 'admin_enqueue_scripts', 'register_on_screen_keyboard_admin_page_scripts' );
 
-function load_on-screen-keyboard-admin-page_scripts( $hook ) {
+function load_on_screen_keyboard_admin_page_scripts( $hook ) {
 
   // Load only on ?page=on-screen-keyboard-admin-page
 
@@ -115,4 +125,4 @@ function load_on-screen-keyboard-admin-page_scripts( $hook ) {
 
 }
 
-add_action( 'admin_enqueue_scripts', 'load_on-screen-keyboard-admin-page_scripts' );
+add_action( 'admin_enqueue_scripts', 'load_on_screen_keyboard_admin_page_scripts' );
