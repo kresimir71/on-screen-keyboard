@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: iainredmill, kk71
-Tags: comments, , onscreenkeyboard, onscreen, screen, keyboard, data-entry, mouse, touchscreen, Password Protect, password protection, password, restrict content
+Tags: keyboard, password, protect
 Requires at least: 4.6
 Tested up to: 6.1.1
 Stable tag: 1.3.2
