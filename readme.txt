@@ -33,6 +33,9 @@ There is a bug in v1.0, preventing the plugin triggering, please upgrade to v1.2
 
 == Screenshots ==
 
+1. Password protected page
+2. Settings
+
 == Upgrade Notice ==
 
 Version 1.3:  Numerical or standard keyboard can be used for entering password protected posts.
