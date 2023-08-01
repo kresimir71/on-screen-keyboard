@@ -4,6 +4,10 @@ on:
 #    tags:
 #      - "*"
     workflow_dispatch:
+      inputs:
+        dry-run:
+          description: 'Run the deployment process without committing.'
+          default: false
 jobs:
   tag:
     name: New tag
