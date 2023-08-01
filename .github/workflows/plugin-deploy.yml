@@ -21,7 +21,7 @@ jobs:
 #          version: 2
 
       - name: WordPress Plugin Deploy
-        uses: kresimir71/action-wordpress-plugin-deploy@stable
+        uses: kresimir71/action-wordpress-plugin-deploy
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
