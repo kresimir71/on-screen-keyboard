@@ -6,7 +6,7 @@ on:
     workflow_dispatch:
       inputs:
         dry-run:
-          description: 'Run the deployment process without committing.'
+          description: 'Run the deployment process without committing (DRY RUN).'
           default: true
         plugin-version:
           description: 'The plugin version i.e. 1.2.3'
