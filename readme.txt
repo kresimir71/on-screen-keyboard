@@ -11,8 +11,7 @@ This plugin adds an onscreen keyboard powered by Javascript/JQuery to your page 
 
 == Description ==
 
-This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from Samuel Deering's work on github with his permission under the above licence by Iain Redmill, now working within WordPress, allowing mouse based input or input when working from a touch screen device. Keyboard settings etc
-can be modified by editing the file. To add a keyboard, enter [oskb] within your page where you wish it to appear.
+This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from Samuel Deering's work on github with his permission under the above licence by Iain Redmill, now working within WordPress, allowing mouse based input or input when working from a touch screen device. Keyboard settings etc can be modified by editing the file. To add a keyboard, enter [oskb] within your page where you wish it to appear.
 
 Apart from improving the working of the older version, the on-screen keyboard for password protected posts and pages in different flavors has been added recently.
 Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.
