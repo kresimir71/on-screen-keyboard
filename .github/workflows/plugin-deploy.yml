@@ -7,7 +7,10 @@ on:
       inputs:
         dry-run:
           description: 'Run the deployment process without committing.'
-          default: false
+          default: true
+        plugin-version:
+          description: 'The plugin version i.e. 1.2.3'
+          required: true
 jobs:
   tag:
     name: New tag
@@ -25,6 +28,7 @@ jobs:
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          VERSION: ${{ inputs.plugin-version }}
         with:
           dry-run: ${{ inputs.dry-run }}
           
