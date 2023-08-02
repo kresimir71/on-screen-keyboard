@@ -15,7 +15,7 @@ This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from 
 
 Apart from improving the working of the older version, the on-screen keyboard for password protected posts and pages in different flavors has been added recently.
 Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.
-Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.
+Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used (but in that case the auto-submit won't work properly - you have to hit the submit button). General passwords can still be used by using standard keyboard.
 
 
 == Installation ==
