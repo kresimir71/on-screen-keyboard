@@ -318,7 +318,7 @@ var onScreenKeyboardJS = {
             { value: "Space", isChar: "false", buttonClass: "button_oskb_default button_oskb_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key_oskb key_oskb_space" },
             { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_symbolsright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterleft" },
          ],
-		onlynumber: [
+        onlynumber: [
         // 1st row
                 { value: 49 },{ value: 50 },{ value: 51 },{ value: 52 },{ value: 53 },{ value: 54 },
                 { value: 55 },{ value: 56 },{ value: 57 },{ value: 48 },
@@ -332,7 +332,7 @@ var onScreenKeyboardJS = {
 jQuery.fn.getCursorPosition = function(){
     if(this.lengh == 0) return -1;
     return jQuery(this).getSelectionStart();
-}
+};
 
 jQuery.fn.getSelectionStart = function(){
     if(this.lengh == 0) return -1;
@@ -350,7 +350,7 @@ jQuery.fn.getSelectionStart = function(){
     pos = input.selectionStart;
 
     return pos;
-}
+};
 
 //SET CURSOR POSITION
 jQuery.fn.setCursorPosition = function(pos) {
