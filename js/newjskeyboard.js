@@ -7,7 +7,7 @@ var onScreenKeyboardJS = {
         //     close: "close"
         // }
     },
-    "keyboard": [], // different keyboards can be set to this variable in order to switch between keyboards easily.
+    "keyboard": {}, // different keyboards can be set to this variable in order to switch between keyboards easily.
     init: function(elem, keyboard) {
         onScreenKeyboardJS.keyboard["default"] = onScreenKeyboardJS.defaultKeyboard;
         onScreenKeyboardJS.keyboardLayout = elem;
