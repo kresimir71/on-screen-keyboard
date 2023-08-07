@@ -11,8 +11,10 @@ var onScreenKeyboardJS = {
     init: function(elem, keyboard) {
         onScreenKeyboardJS.keyboard["default"] = onScreenKeyboardJS.defaultKeyboard;
         onScreenKeyboardJS.keyboardLayout = elem;
+	// If not 'numeric' then ignored. If 'numeric' then the numeric keyboard variant is taken without possibility to tap for another keyboard. 
 	onScreenKeyboardJS.keyboardLayout_data_id = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('id'); // fancy for: element.getAttribute('data-id'); //kk71
 
+	// The html input element (where we can see input text) can be specified.
 	onScreenKeyboardJS.keyboardLayout_data_keyboard = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('keyboard'); // fancy for: element.getAttribute('data-keyboard'); //kk71
 
         if (keyboard != null && keyboard != undefined)
@@ -38,7 +40,8 @@ var onScreenKeyboardJS = {
 	    onScreenKeyboardJS.currentElement = jQuery("#"+onScreenKeyboardJS.keyboardLayout_data_id);
 	    onScreenKeyboardJS.currentElement.trigger( "focus" ); // same as focus()
 	} else {
-	    //first input focus
+	    // If not specified then the first ':input' element will be focused.
+	    // first input focus
 	    var $firstInput;
 	    $firstInput = null;
 	    try {
