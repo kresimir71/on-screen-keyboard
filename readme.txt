@@ -3,7 +3,7 @@ Contributors: iainredmill, kk71
 Tags: keyboard, password, protect
 Requires at least: 4.6
 Tested up to: 6.1.1
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv3 or later
 
 
