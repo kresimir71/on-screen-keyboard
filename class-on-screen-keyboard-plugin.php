@@ -218,7 +218,7 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 				self::single_activate();
 			}
 
-			delete_site_transient( 'update_plugins' );
+			//delete_site_transient( 'update_plugins' );
 		}
 
 		/**
