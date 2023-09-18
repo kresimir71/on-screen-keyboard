@@ -7,12 +7,14 @@ var onScreenKeyboardJS = {
         //     close: "close"
         // }
     },
-    "keyboard": [], // different keyboards can be set to this variable in order to switch between keyboards easily.
+    "keyboard": {}, // different keyboards can be set to this variable in order to switch between keyboards easily.
     init: function(elem, keyboard) {
         onScreenKeyboardJS.keyboard["default"] = onScreenKeyboardJS.defaultKeyboard;
         onScreenKeyboardJS.keyboardLayout = elem;
+	// If not 'numeric' then ignored. If 'numeric' then the numeric keyboard variant is taken without possibility to tap for another keyboard. 
 	onScreenKeyboardJS.keyboardLayout_data_id = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('id'); // fancy for: element.getAttribute('data-id'); //kk71
 
+	// The html input element (where we can see input text) can be specified.
 	onScreenKeyboardJS.keyboardLayout_data_keyboard = jQuery("#" + onScreenKeyboardJS.keyboardLayout).data('keyboard'); // fancy for: element.getAttribute('data-keyboard'); //kk71
 
         if (keyboard != null && keyboard != undefined)
@@ -38,7 +40,8 @@ var onScreenKeyboardJS = {
 	    onScreenKeyboardJS.currentElement = jQuery("#"+onScreenKeyboardJS.keyboardLayout_data_id);
 	    onScreenKeyboardJS.currentElement.trigger( "focus" ); // same as focus()
 	} else {
-	    //first input focus
+	    // If not specified then the first ':input' element will be focused.
+	    // first input focus
 	    var $firstInput;
 	    $firstInput = null;
 	    try {
@@ -318,7 +321,7 @@ var onScreenKeyboardJS = {
             { value: "Space", isChar: "false", buttonClass: "button_oskb_default button_oskb_space", onclick: "onScreenKeyboardJS.space();", keyClass: "key_oskb key_oskb_space" },
             { value: "ABC", isChar: "false", buttonClass: "button_oskb_default button_oskb_symbolsright", onclick: "onScreenKeyboardJS.changeToCapitalLetter();", keyClass: "key_oskb key_oskb_capitalletterleft" },
          ],
-		onlynumber: [
+        onlynumber: [
         // 1st row
                 { value: 49 },{ value: 50 },{ value: 51 },{ value: 52 },{ value: 53 },{ value: 54 },
                 { value: 55 },{ value: 56 },{ value: 57 },{ value: 48 },
@@ -332,7 +335,7 @@ var onScreenKeyboardJS = {
 jQuery.fn.getCursorPosition = function(){
     if(this.lengh == 0) return -1;
     return jQuery(this).getSelectionStart();
-}
+};
 
 jQuery.fn.getSelectionStart = function(){
     if(this.lengh == 0) return -1;
@@ -350,7 +353,7 @@ jQuery.fn.getSelectionStart = function(){
     pos = input.selectionStart;
 
     return pos;
-}
+};
 
 //SET CURSOR POSITION
 jQuery.fn.setCursorPosition = function(pos) {

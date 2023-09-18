@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: iainredmill, kk71
-Tags: comments, , onscreenkeyboard, onscreen, screen, keyboard, data-entry, mouse, touchscreen, Password Protect, password protection, password, restrict content
+Tags: keyboard, password, protect
 Requires at least: 4.6
 Tested up to: 6.1.1
-Stable tag: 1.3
+Stable tag: 1.3.7
 License: GPLv3 or later
 
 
@@ -11,13 +11,11 @@ This plugin adds an onscreen keyboard powered by Javascript/JQuery to your page 
 
 == Description ==
 
-This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from Samuel Deering's work
-on github with his permission under the above licence by Iain Redmill, now working within WordPress, 
-allowing mouse based input or input when working from a touch screen device.  Keyboard settings etc
-can be modified by editing the file.  To add a keyboard, enter [oskb] within your page where you wish 
-it to appear.
-Furthermore. Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.
-Furthermore. Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.
+This plugin adds an onscreen keyboard powered by Javascript/JQuery, ported from Samuel Deering's work on github with his permission under the above licence by Iain Redmill, now working within WordPress, allowing mouse based input or input when working from a touch screen device. Keyboard settings etc can be modified by editing the file. To add a keyboard, enter [oskb] within your page where you wish it to appear.
+
+Apart from improving the working of the older version, the on-screen keyboard for password protected posts and pages in different flavors has been added recently.
+Onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.
+Onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically.  (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used (but in that case the auto-submit won't work properly - you have to hit the submit button). General passwords can still be used by using standard keyboard.
 
 
 == Installation ==
@@ -34,6 +32,9 @@ or use the wordpress plugin installer
 There is a bug in v1.0, preventing the plugin triggering, please upgrade to v1.2, where this is fixed.
 
 == Screenshots ==
+
+1. Password protected page
+2. Settings
 
 == Upgrade Notice ==
 

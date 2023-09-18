@@ -93,7 +93,7 @@ function on_screen_keyboard_ppposts_markup() {
   <input type="radio" id="on_screen_keyboard_ppposts_field2" name="on_screen_keyboard_ppposts_field" value="pp_enabled_standard" <?php echo $checked[1]; ?> <?php echo $disabled; ?> >
   <label for="on_screen_keyboard_ppposts_field2">Enable onscreen keyboard for password protected posts and pages. Standard keyboard can still be used.</label><br>
   <input type="radio" id="on_screen_keyboard_ppposts_field3" name="on_screen_keyboard_ppposts_field" value="pp_enabled_numeric" <?php echo $checked[2]; ?> <?php echo $disabled; ?> >
-  <label for="on_screen_keyboard_ppposts_field3">Enable onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically. (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used. General passwords can still be used by using standard keyboard.</label><br>
+  <label for="on_screen_keyboard_ppposts_field3">Enable onscreen numerical keyboard for password protected posts and pages where password is numerical i.e. a pincode. Furthermore: 12 digit password is submitted automatically. (Passwords longer than 12 characters, of which the first 12 characters are numbers, are therefore impossible.) Standard keyboard can still be used (but in that case the auto-submit won't work properly - you have to hit the submit button). General passwords can still be used by using standard keyboard.</label><br>
     <?php
 }
 
