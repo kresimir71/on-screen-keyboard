@@ -208,8 +208,9 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 					foreach ( $blog_ids as $blog_id ) {
 						switch_to_blog( $blog_id );
 						self::single_activate();
+						// https://developer.wordpress.org/reference/functions/restore_current_blog/
+						restore_current_blog();
 					}
-					restore_current_blog();
 				} else {
 					self::single_activate();
 				}
@@ -239,8 +240,9 @@ if ( ! class_exists( 'OnScreenKeyboard', false ) ) {
 					foreach ( $blog_ids as $blog_id ) {
 						switch_to_blog( $blog_id );
 						self::single_deactivate();
+						// https://developer.wordpress.org/reference/functions/restore_current_blog/
+						restore_current_blog();
 					}
-					restore_current_blog();
 				} else {
 					self::single_deactivate();
 				}
