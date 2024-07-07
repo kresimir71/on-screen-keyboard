@@ -128,6 +128,7 @@ var onScreenKeyboardJS = {
 
         jQuery("#" + onScreenKeyboardJS.keyboardLayout).html(s);
     },
+    /* TODO: https://stackoverflow.com/questions/61199942/how-can-i-disable-keyboard-input-on-an-html-input-of-type-number-what-about-in */
     addKeyDownEvent: function() {
         jQuery("#keyboardOskbCapitalLetter > div.button_oskb_default, #keyboardOskbSmallLetter > div.button_oskb_default, #keyboardOskbNumber > div.button_oskb_default, #keyboardOskbSymbols > div.button_oskb_default, #keyboardOskbOnlyNumber > div.button_oskb_default").
             bind('mousedown', (function() { jQuery(this).addClass("buttonOskbDown"); })).
