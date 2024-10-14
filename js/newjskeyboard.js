@@ -28,7 +28,7 @@ var onScreenKeyboardJS = {
         onScreenKeyboardJS.addKeyDownEvent();
 
         onScreenKeyboardJS.show();
-        jQuery(':input').not('[type="reset"]').not('[type="submit"]').on('focus, click', function(e)
+        jQuery(':input').not('[type="reset"]').not('[type="submit"]').on('focus, click', function(e) // 'focus, click' is incorrect!?, in order to trigger it may be 'focus click' 14oct24
          {
             onScreenKeyboardJS.currentElement = jQuery(this);
             onScreenKeyboardJS.currentElementCursorPosition = jQuery(this).getCursorPosition();
